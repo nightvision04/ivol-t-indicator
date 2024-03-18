@@ -44,20 +44,27 @@ class Data:
         print(f"Number of duplicate index values: {self.vix.index.duplicated().sum()}")
 
         if len(self.vix) < 30:
-            print("Insufficient data points for 30-day rolling average.")
+            print("Insufficient data points for a 30-day rolling window.")
             self.vix['Indicator'] = np.nan
         else:
             min_periods = 30 * 5 // 7  # Adjust min_periods based on 5-day trading week
-            rolling_avg_30 = self.vix['Close'].rolling(window=30, min_periods=min_periods).mean().dropna()
-            print(f"30-day rolling average shape: {rolling_avg_30.shape}")
 
-            if not rolling_avg_30.empty:
-                params = t.fit(rolling_avg_30, fscale=1)
-                dof = params[0]
-                self.vix['Indicator'] = rolling_avg_30.apply(lambda x: t.cdf(x, dof, loc=params[1], scale=params[2])) 
-            else:
-                print("30-day rolling average is empty.")
-                self.vix['Indicator'] = np.nan
+            # Define a custom function to fit the t-distribution within each rolling window
+            def fit_t_distribution(window):
+                if len(window.dropna()) < min_periods:
+                    return np.nan  # Not enough data to fit the distribution
+                else:
+                    params = t.fit(window.dropna(), fscale=1)
+                    dof, loc, scale = params
+                    # Calculate the CDF for the last value in the window
+                    return t.cdf(window.iloc[-1], dof, loc=loc, scale=scale)
+
+            # Apply the custom function to each rolling window of the closing prices
+            self.vix['Indicator'] = self.vix['Close'].rolling(window=30).apply(fit_t_distribution, raw=False)
+
+        # After calculating the indicator, it's useful to plot or check the values.
+        # You can call self.plot_indicator() here if you want to visualize the results.
+
 
     def plot_indicator(self):
         self.calculate_indicator()
@@ -95,9 +102,9 @@ class Data:
             filtered_data = self.vix.loc[start_date:]
 
             # Plot price
-            ax1.plot(filtered_data.index, filtered_data['Close'], color='blue', label='VIX')
+            ax1.plot(filtered_data.index, filtered_data['Close'], color='blue', label='Price')
             ax1.set_xlabel('Date')
-            ax1.set_ylabel('VIX', color='blue')
+            ax1.set_ylabel('Price', color='blue')
             ax1.tick_params('y', colors='blue')
 
             # Plot indicator
@@ -115,8 +122,7 @@ class Data:
                 os.makedirs('images')
 
             # Save the plot as SVG and PNG files
-            plt.savefig(f'images/vix_indicator_{date_range}.svg', format='svg')
-            plt.savefig(f'images/vix_indicator_{date_range}.png', format='png')
+            plt.savefig(f'images/vix_indicator_{date_range}_r.svg', format='svg')
 
             plt.show()
         else:
@@ -127,10 +133,7 @@ if __name__ == "__main__":
     print(data.get_vix().head())
     print(data.vix['Close'].head())
     print(data.vix['Close'].isnull().sum())
-    #data.plot_vix(week_of_month=2)
-    #data.plot_indicator()
 
     date_ranges = ['3m', '6m', '1y', '3y', '10y', 'max']
     for date_range in date_ranges:
         data.plot_price_and_indicator(date_range)
-        
