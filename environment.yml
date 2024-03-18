@@ -1,0 +1,9 @@
+name: myenv
+channels:
+  - defaults
+dependencies:
+  - pandas
+  - numpy
+  - python=3.10
+  - matplotlib
+  - scipy

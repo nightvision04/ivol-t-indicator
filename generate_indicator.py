@@ -100,6 +100,14 @@ class Data:
             plt.title("Price and Cumulative Probability Indicator")
             fig.legend(loc='upper left')
 
+            # Create the "images" folder if it doesn't exist
+            if not os.path.exists('images'):
+                os.makedirs('images')
+
+            # Save the plot as SVG and PNG files
+            plt.savefig('images/vix_indicator.svg', format='svg')
+            plt.savefig('images/vix_indicator.png', format='png')
+
             plt.show()
         else:
             print("Indicator contains only NaN values.")
