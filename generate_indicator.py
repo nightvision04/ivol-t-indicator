@@ -95,9 +95,9 @@ class Data:
             filtered_data = self.vix.loc[start_date:]
 
             # Plot price
-            ax1.plot(filtered_data.index, filtered_data['Close'], color='blue', label='Price')
+            ax1.plot(filtered_data.index, filtered_data['Close'], color='blue', label='VIX')
             ax1.set_xlabel('Date')
-            ax1.set_ylabel('Price', color='blue')
+            ax1.set_ylabel('VIX', color='blue')
             ax1.tick_params('y', colors='blue')
 
             # Plot indicator
