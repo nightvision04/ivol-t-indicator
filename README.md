@@ -18,6 +18,10 @@ Where:
 - `σ` is the scale parameter (estimated using `scipy.stats.t.fit`)
 - `Γ` is the gamma function
 
+# Visualization
+
+![IV Phase Transition Indicator](https://raw.githubusercontent.com/nightvision04/ivol-t-indicator/55e1e56f51c5a4857ba5402f5a22288d2595586a/images/vix_indicator_1y_r.svg)
+
 ## Data
 
 The repository provides links to download the raw and smoothed indicator data in CSV format. The data is updated hourly via Github Actions.
