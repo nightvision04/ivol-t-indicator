@@ -42,7 +42,7 @@
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
 <body>
-    <h1>VIX Phase Indicator Charts</h1>
+    <h1>IV Phase Indicator</h1>
 
     <p>The VIX is a measure of the stock market's expectation of volatility implied by S&P 500 index options. It is also known as the "fear index" or "fear gauge".</p>
     <p>This indicator is a meant to work as a extremely rough proxy for detecting phase transitions in implied volatility premiums. It doesn't predict the future.</p>
@@ -60,7 +60,7 @@
     <p>
         Where:
         <ul>
-            <li>\(F_t\) is the cumulative distribution function (CDF) of the Student's t-distribution</li>
+            <li>\(F_t\) is the cumulative distribution function (CDF) of the Student's t-distribution, using the last Close value of the VIX.</li>
             <li>\(x\) is the input value (30-day rolling average of VIX closing prices)</li>
             <li>\(\nu\) is the degrees of freedom (set to 1)</li>
             <li>\(\mu\) is the location parameter (estimated using <code>scipy.stats.t.fit</code>)</li>
@@ -69,6 +69,10 @@
         </ul>
     </p>
     
+    <p>
+         <i>Note: The below charts are updated every couple of minutes.</i>
+    </p>
+
     <div class="image-container">
         <div class="image-wrapper">
             <img src="https://raw.githubusercontent.com/nightvision04/ivol-t-indicator/main/images/vix_indicator_3m.svg" alt="VIX Indicator - 3 Months">
@@ -95,5 +99,22 @@
             <div class="image-title">All Time</div>
         </div>
     </div>
+
+    <footer>
+        <hr>
+        <p>References:</p>
+        <ul>
+          <li>
+            Taleb, N. N. (2020). <em>Statistical Consequences of Fat Tails</em>. STEM Academic Press.
+          </li>
+        </ul>
+        <p>Author:</p>
+        <ul>
+          <li>
+            <a href="https://github.com/nightvision04" target="_blank">Daniel Scott, March 2024</a>
+          </li>
+        </ul>
+      </footer>
+
 </body>
 </html>
