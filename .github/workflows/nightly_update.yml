@@ -40,4 +40,5 @@ jobs:
         git config --global user.name "GitHub Actions"
         git add images/
         git commit -m "Update VIX indicator images"
-        git push https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/nightvision04/ivol-t-indicator.git HEAD:main
+        # Use the REPO_ACCESS_TOKEN for authentication
+        git push https://${{ secrets.REPO_ACCESS_TOKEN }}@github.com/nightvision04/ivol-t-indicator.git HEAD:main
