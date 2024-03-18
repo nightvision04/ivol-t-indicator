@@ -26,7 +26,8 @@ Where:
 
 ## Data
 
-The repository provides links to download the raw and smoothed indicator data in CSV format. The data is updated hourly via Github Actions.
+The repository provides links to download the raw and smoothed indicator data in CSV format. The data is updated hourly via Github Actions. 
+You can also just [download it here](https://raw.githubusercontent.com/nightvision04/ivol-t-indicator/main/data/vix_indicator_raw.csv).
 
 ## Code
 
