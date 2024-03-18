@@ -29,14 +29,7 @@ class Data:
         self.vix['DayName'] = self.vix.index.day_name()
         self.vix['MonthName'] = self.vix.index.month_name()
         self.vix['Weekday'] = self.vix.index.weekday
-        self.vix['WeekdayName'] = self.vix.index.weekday_name
-        self.vix['Weekday'] = self.vix.index.weekday
-        self.vix['WeekdayName'] = self.vix.index.weekday_name
-        self.vix['WeekNumber'] = self.vix.index.week
-        self.vix['DayOfYear'] = self.vix.index.dayofyear
-        self.vix['DayOfMonth'] = self.vix.index.day
-        self.vix['DayOfWeek'] = self.vix.index.dayofweek
-        self.vix['DayOfWeekName'] = self.vix.index.day_name()
+        
 
     def get_vix(self):
         return self.vix
