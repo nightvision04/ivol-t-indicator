@@ -62,8 +62,8 @@ class Data:
             # Apply the custom function to each rolling window of the closing prices
             self.vix['Indicator'] = self.vix['Close'].rolling(window=30).apply(fit_t_distribution, raw=False)
 
-        # After calculating the indicator, it's useful to plot or check the values.
-        # You can call self.plot_indicator() here if you want to visualize the results.
+        # Save the indicator values to a CSV file. Only include Date (index) and Indicator columns
+        self.vix[['Indicator']].to_csv('data/vix_indicator_raw.csv')
 
 
     def plot_indicator(self):

@@ -59,6 +59,9 @@ class Data:
                 print("30-day rolling average is empty.")
                 self.vix['Indicator'] = np.nan
 
+        # Save the indicator values to a CSV file. Only include Date (index) and Indicator columns
+        self.vix[['Indicator']].to_csv('data/vix_indicator_smooth.csv')
+
     def plot_indicator(self):
         self.calculate_indicator()
         if not self.vix['Indicator'].isnull().all():  # Check if 'Indicator' is not all NaN
