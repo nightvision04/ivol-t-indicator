@@ -104,7 +104,7 @@ class Data:
             # Plot price
             ax1.plot(filtered_data.index, filtered_data['Close'], color='blue', label='Price')
             ax1.set_xlabel('Date')
-            ax1.set_ylabel('Price', color='blue')
+            ax1.set_ylabel('VIX', color='blue')
             ax1.tick_params('y', colors='blue')
 
             # Plot indicator
@@ -114,7 +114,7 @@ class Data:
 
             # Set title and legend
             current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-            plt.title(f"Price and Cumulative Probability Indicator - {date_range.upper()} (Updated {current_time})")
+            plt.title(f"VIX and Cumulative Probability Indicator - {date_range.upper()} (Updated {current_time})")
             fig.legend(loc='upper left')
 
             # Create the "images" folder if it doesn't exist
