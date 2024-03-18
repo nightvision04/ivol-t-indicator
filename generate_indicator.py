@@ -3,15 +3,11 @@ import numpy as np
 import matplotlib.pyplot as plt
 from scipy.stats import t
 import os
-
+from datetime import datetime
 import yfinance as yf
-
-
 
 class Data:
     def __init__(self):
-        #self.vix = pd.read_csv('data/VIX.csv')
-
         # Define the symbol for the VIX
         symbol = "^VIX"
 
@@ -21,10 +17,6 @@ class Data:
         # Retrieve the historical data
         self.vix = vix.history(period="max")
 
-        self.vix
-
-        # self.vix['Date'] = pd.to_datetime(self.vix['Date'])
-        # self.vix.set_index('Date', inplace=True)
         self.vix = self.vix.sort_index()
         self.vix['CloseLog'] = np.log(self.vix['Close'])
         self.vix['Day'] = self.vix.index.dayofweek
@@ -80,25 +72,42 @@ class Data:
         else:
             print("Indicator contains only NaN values.")
 
-    def plot_price_and_indicator(self):
+    def plot_price_and_indicator(self, date_range):
         self.calculate_indicator()
         if not self.vix['Indicator'].isnull().all():  # Check if 'Indicator' is not all NaN
-            fig, ax1 = plt.subplots()
+            fig, ax1 = plt.subplots(figsize=(16, 8))
             ax2 = ax1.twinx()
 
+            # Filter data based on the specified date range
+            if date_range == '3m':
+                start_date = self.vix.index[-1] - pd.DateOffset(months=3)
+            elif date_range == '6m':
+                start_date = self.vix.index[-1] - pd.DateOffset(months=6)
+            elif date_range == '1y':
+                start_date = self.vix.index[-1] - pd.DateOffset(years=1)
+            elif date_range == '3y':
+                start_date = self.vix.index[-1] - pd.DateOffset(years=3)
+            elif date_range == '10y':
+                start_date = self.vix.index[-1] - pd.DateOffset(years=10)
+            else:
+                start_date = self.vix.index[0]
+
+            filtered_data = self.vix.loc[start_date:]
+
             # Plot price
-            ax1.plot(self.vix.index, self.vix['Close'], color='blue', label='Price')
+            ax1.plot(filtered_data.index, filtered_data['Close'], color='blue', label='Price')
             ax1.set_xlabel('Date')
             ax1.set_ylabel('Price', color='blue')
             ax1.tick_params('y', colors='blue')
 
             # Plot indicator
-            ax2.plot(self.vix.index, self.vix['Indicator'], color='red', label='Indicator')
+            ax2.plot(filtered_data.index, filtered_data['Indicator'], color='red', label='Indicator')
             ax2.set_ylabel('Indicator', color='red')
             ax2.tick_params('y', colors='red')
 
             # Set title and legend
-            plt.title("Price and Cumulative Probability Indicator")
+            current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+            plt.title(f"Price and Cumulative Probability Indicator - {date_range.upper()} (Updated {current_time})")
             fig.legend(loc='upper left')
 
             # Create the "images" folder if it doesn't exist
@@ -106,8 +115,8 @@ class Data:
                 os.makedirs('images')
 
             # Save the plot as SVG and PNG files
-            plt.savefig('images/vix_indicator.svg', format='svg')
-            plt.savefig('images/vix_indicator.png', format='png')
+            plt.savefig(f'images/vix_indicator_{date_range}.svg', format='svg')
+            plt.savefig(f'images/vix_indicator_{date_range}.png', format='png')
 
             plt.show()
         else:
@@ -120,4 +129,7 @@ if __name__ == "__main__":
     print(data.vix['Close'].isnull().sum())
     #data.plot_vix(week_of_month=2)
     #data.plot_indicator()
-    data.plot_price_and_indicator()
+
+    date_ranges = ['3m', '6m', '1y', '3y', '10y', 'max']
+    for date_range in date_ranges:
+        data.plot_price_and_indicator(date_range)
