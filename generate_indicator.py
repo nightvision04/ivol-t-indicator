@@ -133,3 +133,4 @@ if __name__ == "__main__":
     date_ranges = ['3m', '6m', '1y', '3y', '10y', 'max']
     for date_range in date_ranges:
         data.plot_price_and_indicator(date_range)
+        
