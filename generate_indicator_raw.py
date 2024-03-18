@@ -82,7 +82,7 @@ class Data:
     def plot_price_and_indicator(self, date_range):
         self.calculate_indicator()
         if not self.vix['Indicator'].isnull().all():  # Check if 'Indicator' is not all NaN
-            fig, ax1 = plt.subplots(figsize=(16, 8))
+            fig, ax1 = plt.subplots(figsize=(18, 4))
             ax2 = ax1.twinx()
 
             # Filter data based on the specified date range
@@ -108,9 +108,9 @@ class Data:
             ax1.tick_params('y', colors='blue')
 
             # Plot indicator
-            ax2.plot(filtered_data.index, filtered_data['Indicator'], color='red', label='Indicator')
-            ax2.set_ylabel('Indicator', color='red')
-            ax2.tick_params('y', colors='red')
+            ax2.plot(filtered_data.index, filtered_data['Indicator'], color='black', label='Indicator')
+            ax2.set_ylabel('Indicator', color='black')
+            ax2.tick_params('y', colors='black')
 
             # Set title and legend
             current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')

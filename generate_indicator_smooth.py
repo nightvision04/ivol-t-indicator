@@ -75,7 +75,7 @@ class Data:
     def plot_price_and_indicator(self, date_range):
         self.calculate_indicator()
         if not self.vix['Indicator'].isnull().all():  # Check if 'Indicator' is not all NaN
-            fig, ax1 = plt.subplots(figsize=(16, 8))
+            fig, ax1 = plt.subplots(figsize=(18, 4))
             ax2 = ax1.twinx()
 
             # Filter data based on the specified date range
