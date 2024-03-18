@@ -5,20 +5,95 @@
     <title>Indicator</title>
     <style>
         body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
+            font-family: Arial, sans-serif;
             margin: 0;
+            padding: 20px;
             background-color: #f4f4f4;
         }
-        img {
+        h1 {
+            text-align: center;
+        }
+        .image-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .image-wrapper {
             max-width: 100%;
-            max-height: 100vh;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            background-color: #fff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .image-wrapper img {
+            max-width: 100%;
+            height: auto;
+        }
+        .image-title {
+            text-align: center;
+            margin-top: 10px;
+            font-weight: bold;
         }
     </style>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
 <body>
-    <img src="https://raw.githubusercontent.com/nightvision04/ivol-t-indicator/main/images/vix_indicator.png" alt="VIX Indicator">
+    <h1>VIX Phase Indicator Charts</h1>
+
+    <p>The VIX is a measure of the stock market's expectation of volatility implied by S&P 500 index options. It is also known as the "fear index" or "fear gauge".</p>
+    <p>This indicator is a meant to work as a extremely rough proxy for detecting phase transitions in implied volatility premiums. It doesn't predict the future.</p>
+    <p>Below are the VIX indicator charts for different time periods. The VIX is fit to a Students T distribution using 1 degree of freedom from a rolling window of 30 days (Daily Close) The CBOE VIX data is sources from the Yahoo Finance API.</p>
+    
+    <h2>Indicator Description</h2>
+    <p>
+        The indicator is calculated using the cumulative distribution function (CDF) of the Student's t-distribution with 1 degree of freedom:
+    </p>
+    <p>
+        \[
+        \text{Indicator} = F_t(x; \nu=1, \mu, \sigma) = \int_{-\infty}^x \frac{\Gamma(\frac{\nu+1}{2})}{\sqrt{\nu\pi}\,\Gamma(\frac{\nu}{2})} \left(1+\frac{t^2}{\nu}\right)^{-\frac{\nu+1}{2}} \,dt
+        \]
+    </p>
+    <p>
+        Where:
+        <ul>
+            <li>\(F_t\) is the cumulative distribution function (CDF) of the Student's t-distribution</li>
+            <li>\(x\) is the input value (30-day rolling average of VIX closing prices)</li>
+            <li>\(\nu\) is the degrees of freedom (set to 1)</li>
+            <li>\(\mu\) is the location parameter (estimated using <code>scipy.stats.t.fit</code>)</li>
+            <li>\(\sigma\) is the scale parameter (estimated using <code>scipy.stats.t.fit</code>)</li>
+            <li>\(\Gamma\) is the gamma function</li>
+        </ul>
+    </p>
+    
+    <div class="image-container">
+        <div class="image-wrapper">
+            <img src="https://raw.githubusercontent.com/nightvision04/ivol-t-indicator/main/images/vix_indicator_3m.svg" alt="VIX Indicator - 3 Months">
+            <div class="image-title">3 Months</div>
+        </div>
+        <div class="image-wrapper">
+            <img src="https://raw.githubusercontent.com/nightvision04/ivol-t-indicator/main/images/vix_indicator_6m.svg" alt="VIX Indicator - 6 Months">
+            <div class="image-title">6 Months</div>
+        </div>
+        <div class="image-wrapper">
+            <img src="https://raw.githubusercontent.com/nightvision04/ivol-t-indicator/main/images/vix_indicator_1y.svg" alt="VIX Indicator - 1 Year">
+            <div class="image-title">1 Year</div>
+        </div>
+        <div class="image-wrapper">
+            <img src="https://raw.githubusercontent.com/nightvision04/ivol-t-indicator/main/images/vix_indicator_3y.svg" alt="VIX Indicator - 3 Years">
+            <div class="image-title">3 Years</div>
+        </div>
+        <div class="image-wrapper">
+            <img src="https://raw.githubusercontent.com/nightvision04/ivol-t-indicator/main/images/vix_indicator_10y.svg" alt="VIX Indicator - 10 Years">
+            <div class="image-title">10 Years</div>
+        </div>
+        <div class="image-wrapper">
+            <img src="https://raw.githubusercontent.com/nightvision04/ivol-t-indicator/main/images/vix_indicator_max.svg" alt="VIX Indicator - All Time">
+            <div class="image-title">All Time</div>
+        </div>
+    </div>
 </body>
 </html>
