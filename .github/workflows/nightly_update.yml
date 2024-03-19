@@ -37,7 +37,8 @@ jobs:
       shell: bash -l {0}
       run: |
         conda info
-        python generate_indicator.py
+        python generate_indicator_raw.py
+        python generate_indicator_smooth.py
 
     - name: Commit and push changes
       run: |
