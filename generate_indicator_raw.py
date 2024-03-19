@@ -15,7 +15,7 @@ class Data:
         vix = yf.Ticker(symbol)
 
         # Retrieve the historical data
-        self.vix = vix.history(period="max")
+        self.vix = vix.history(period="15y")
 
         self.vix = self.vix.sort_index()
         self.vix['CloseLog'] = np.log(self.vix['Close'])
@@ -134,6 +134,5 @@ if __name__ == "__main__":
     print(data.vix['Close'].head())
     print(data.vix['Close'].isnull().sum())
 
-    date_ranges = ['3m', '6m', '1y', '3y', '10y', 'max']
     for date_range in date_ranges:
         data.plot_price_and_indicator(date_range)

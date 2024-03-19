@@ -15,7 +15,7 @@ class Data:
         vix = yf.Ticker(symbol)
 
         # Retrieve the historical data
-        self.vix = vix.history(period="max")
+        self.vix = vix.history(period="15y")
 
         self.vix = self.vix.sort_index()
         self.vix['CloseLog'] = np.log(self.vix['Close'])

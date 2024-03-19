@@ -40,9 +40,6 @@ jobs:
         python generate_indicator_raw.py
         python generate_indicator_smooth.py
 
-    - name: Add workflow status badge
-      uses: actions/checkout@v2
-
     - name: Commit and push changes
       run: |
         git config --global user.name "${{ env.CI_COMMIT_AUTHOR }}"
@@ -50,3 +47,6 @@ jobs:
         git add images/
         git commit -m "${{ env.CI_COMMIT_MESSAGE }}"
         git push
+
+    - name: Add workflow status badge
+      uses: actions/checkout@v2
