@@ -1,11 +1,9 @@
 name: Periodic Update
 
 on:
-  push:
-    branches:
-      - main
+
   schedule:
-    - cron: '*/120 * * * *' 
+    - cron: '0 0 * * *' # At 00:00 (midnight) UTC every day
 
 jobs:
   update_images:
