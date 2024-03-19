@@ -1,4 +1,3 @@
-Here's the updated README with added shields:
 
 # IV Phase Transition Indicator
 
