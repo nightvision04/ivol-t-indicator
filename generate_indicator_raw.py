@@ -11,7 +11,7 @@ class Data:
         # Define the symbol for the VIX
         symbol = "^VIX"
 
-        # Create a Ticker object
+        # Create a Ticker object 
         vix = yf.Ticker(symbol)
 
         # Retrieve the historical data
