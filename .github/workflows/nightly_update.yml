@@ -1,9 +1,11 @@
 name: Periodic Update
 
 on:
-
+  push:
+    branches:
+      - main
   schedule:
-    - cron: '0 0 * * *' # At 00:00 (midnight) UTC every day
+    - cron: '0 0 * * *'  
 
 jobs:
   update_images:
@@ -35,11 +37,7 @@ jobs:
       shell: bash -l {0}
       run: |
         conda info
-        python generate_indicator_raw.py
-        python generate_indicator_smooth.py
-
-    - name: Add workflow status badge
-      uses: actions/checkout@v2
+        python generate_indicator.py
 
     - name: Commit and push changes
       run: |
