@@ -122,6 +122,7 @@ class Data:
                 os.makedirs('images')
 
             # Save the plot as SVG and PNG files
+            print(f"Saving plot for raw {date_range}...")
             plt.savefig(f'images/vix_indicator_{date_range}_r.svg', format='svg')
 
             plt.show()
@@ -130,9 +131,7 @@ class Data:
 
 if __name__ == "__main__":
     data = Data()
-    print(data.get_vix().head())
-    print(data.vix['Close'].head())
-    print(data.vix['Close'].isnull().sum())
 
+    date_ranges = ['3m', '6m', '1y', '3y', '10y', 'max']
     for date_range in date_ranges:
         data.plot_price_and_indicator(date_range)
