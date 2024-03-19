@@ -32,7 +32,7 @@ Where:
 
 # Visualization
 
-##### Update hourly:
+##### Update daily:
 
 ![IV Phase Transition Indicator](https://raw.githubusercontent.com/nightvision04/ivol-t-indicator/55e1e56f51c5a4857ba5402f5a22288d2595586a/images/vix_indicator_1y_r.svg)
 
