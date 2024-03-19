@@ -9,7 +9,8 @@ Here's the updated README with added shields:
 [![Matplotlib](https://img.shields.io/badge/Matplotlib-3.4.0%2B-blue)](https://matplotlib.org/)
 [![SciPy](https://img.shields.io/badge/SciPy-1.7.0%2B-blue)](https://www.scipy.org/)
 [![yfinance](https://img.shields.io/badge/yfinance-0.1.70%2B-blue)](https://pypi.org/project/yfinance/)
-[![Workflow Status](https://github.com/<OWNER>/<REPO>/actions/workflows/<WORKFLOW_FILE>/badge.svg)]
+[![Workflow Status](https://github.com/nightvision04/ivol-t-indicator/actions/workflows/nightly_update.yml/badge.svg)](https://github.com/nightvision04/ivol-t-indicator/actions)
+
 
 This repository contains an indicator for detecting phase transitions in implied volatility (IV) premiums using the VIX index. The indicator is based on fitting the VIX data to a Student's t-distribution with 1 degree of freedom using a 30-day rolling window.
 
